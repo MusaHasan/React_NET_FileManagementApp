@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using React_NET_FileManagement.Data.Model;
+using React_NET_FileManagement.Data.Models;
 
 namespace React_NET_FileManagement.Data
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace React_NET_FileManagement.Data.Model
+namespace React_NET_FileManagement.Data.Models
 {
     public class Appointment
     {

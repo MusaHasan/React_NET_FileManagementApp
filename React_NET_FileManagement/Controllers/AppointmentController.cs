@@ -29,7 +29,8 @@ namespace React_NET_FileManagement.Controllers
           {
               return NotFound("No Data Found!");
           }
-            return await _context.Appointments.Where(e => !e.Deleted && !e.Done).ToListAsync();
+          var result = await _context.Appointments.Where(e => !e.Deleted && !e.Done).ToListAsync();
+            return result;
         }
 
         // GET: api/Appointment/5

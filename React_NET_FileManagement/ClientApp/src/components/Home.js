@@ -3,13 +3,29 @@ import New from "./New";
 import Edit from "./Edit";
 import Delete from "./Delete";
 import Appointment from "./Appointment";
-import { testData } from "./Lib";
+//import { testData, getDefault, openModel } from "./Lib";
+import { getDefault, openModel } from "./Lib";
 
 export default function Home(props) {
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    setDataList(testData);
+    getDefault()
+      .then((response) => {
+        // Log the response to see what you're getting
+        console.log(response);
+        setDataList(response);
+        // Assuming you're expecting JSON, parse the response
+        return response.json();
+      })
+      .then((data) => {
+        // Now you can work with the parsed data
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle any errors that occurred during the request
+        console.error("Error fetching data:", error);
+      });
   }, []);
   return (
     <main>
@@ -18,10 +34,12 @@ export default function Home(props) {
         This powerful web applicaiton helps you to manage your dates very easy.
       </p>
       <div className="add-btn row items-center content-center">
-        <div className="btn add">+</div>
+        <div className="btn add" onClick={() => openModel("new-modal")}>
+          +
+        </div>
       </div>
 
-      <div className="notifications spacer-20"></div>
+      <div className="notifications spacer-20">This is notifications text </div>
 
       <section className="row justify-btw items-center filter">
         <div className="modal-title">Filter</div>
@@ -104,7 +122,7 @@ export default function Home(props) {
           Loading <div className="loading">...</div>
         </div>
       ) : (
-        dataList.map((item) => <Appointment item={item} key={item.ID} />)
+        dataList.map((item) => <Appointment item={item} key={item.id} />)
       )}
 
       <section>

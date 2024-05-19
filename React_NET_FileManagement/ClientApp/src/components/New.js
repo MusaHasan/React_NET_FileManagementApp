@@ -37,7 +37,7 @@ export default function New(props) {
     postAppointment(entry)
       .then((r) => {
         console.log(r);
-        props.refreshApp(Math.random() * 125 * Math.random());
+        props.refreshData(Math.random() * 125 * Math.random());
       })
       .catch((e) => console.log("Error happend at posting new app: ", e));
 

@@ -14,7 +14,7 @@ export default function Appointment(props) {
     //Poen edit model
     openModal("edit-modal");
   };
-  const levelOfImportance = [
+  const leavelOfImportence = [
     "Very Low",
     "Low",
     "Normal",
@@ -34,16 +34,22 @@ export default function Appointment(props) {
       <div className="column description">{props.item.description}</div>
       <div
         className={`column importance ${
-          props.item.levelOfImportance === 0
-            ? " bc-green"
-            : props.item.levelOfImportance === 4
-            ? " bc-gold"
-            : props.item.levelOfImportance === 5
-            ? " bc-red"
+          props.item.leavelOfImportence === 0
+            ? "bc-green"
+            : props.item.leavelOfImportence === 1
+            ? "bc-green"
+            : props.item.leavelOfImportence === 2
+            ? "bc-green"
+            : props.item.leavelOfImportence === 3
+            ? "bc-green"
+            : props.item.leavelOfImportence === 4
+            ? "bc-gold"
+            : props.item.leavelOfImportence === 5
+            ? "bc-red"
             : ""
         }`}
       >
-        {levelOfImportance[props.item.levelOfImportance]}
+        {leavelOfImportence[props.item.leavelOfImportence]}
       </div>
       <div className="column date">{props.item.date.split("T")}</div>
       <div className="column time">{props.item.time}</div>

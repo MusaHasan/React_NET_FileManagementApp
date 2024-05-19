@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { activeId, deleteAppointment } from "./Lib";
+import { activeId, deleteAppointment, closeModal } from "./Lib";
 
 export default function Delete(props) {
   const deleteApp = () => {
     deleteAppointment(activeId.id)
       .then((r) => console.log("Deleted successfully: ", r))
       .catch((e) => console.log("Could not delete the appointment: ", e));
-    props.refreshApp(Math.random() * 125 * Math.random());
+    props.refreshData(Math.random() * 125 * Math.random());
     closeModal("delete-modal");
   };
   useEffect(() => {

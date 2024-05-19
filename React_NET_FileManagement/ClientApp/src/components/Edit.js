@@ -33,7 +33,7 @@ export default function Edit(props) {
       v_ = e.target.checked;
       setDeleted_(v_);
     }
-    if (name_ === "levelOfImportance") {
+    if (name_ === "leavelOfImportence") {
       v_ = Number(v_);
       setImportance_(v_);
     }
@@ -45,12 +45,12 @@ export default function Edit(props) {
     updateAppointment(entry)
       .then((r) => console.log("Update successfully: ", r))
       .catch((e) => console.log("Could not update the appointment: ", e));
-    props.refreshApp(Math.random() * 125 * Math.random());
+    props.refreshData(Math.random() * 125 * Math.random());
     closeModal("edit-modal");
   };
 
   const defaultDate =
-    typeof entry.date === "string" ? entry.data.split("T")[0] : "";
+    typeof entry.date === "string" ? entry.date.split("T")[0] : "";
   useEffect(() => {
     console.log("Edit Component");
     setDone_(entry.done);
@@ -109,10 +109,10 @@ export default function Edit(props) {
         </div>
 
         <div className="ms-10">
-          <label htmlFor="LevelOfImportance_e">Importance</label>
+          <label htmlFor="leavelOfImportence_e">Importance</label>
           <select
-            name="levelOfImportance"
-            id="LevelOfImportance_e"
+            name="leavelOfImportence"
+            id="leavelOfImportence_e"
             value={importance_}
             onChange={editApp}
             defaultValue={data.levelOfImportence}

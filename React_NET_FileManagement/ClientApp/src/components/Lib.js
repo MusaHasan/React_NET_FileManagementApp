@@ -146,7 +146,7 @@ export async function deleteAppointment(id) {
   }
 
   try {
-    const result = await res.json();
+    const result = await res;
     return result;
   } catch (error) {
     console.log("Error parsing JSON: ", error);

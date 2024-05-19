@@ -19,7 +19,7 @@ export default function Home(props) {
         console.log(response);
         setDataList(response);
         // Assuming you're expecting JSON, parse the response
-        return response.json();
+        return response;
       })
       .then((data) => {
         // Now you can work with the parsed data
@@ -27,7 +27,7 @@ export default function Home(props) {
       })
       .catch((error) => {
         // Handle any errors that occurred during the request
-        console.error("Error fetching data:", error);
+        console.log("Error fetching data:", error);
       });
   }, [refreshData]); // Event Trigered when new post is created.
   return (

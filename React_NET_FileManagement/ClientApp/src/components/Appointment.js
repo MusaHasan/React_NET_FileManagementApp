@@ -1,6 +1,19 @@
 import React from "react";
+import { activeId, entry, openModal } from "./Lib";
 
 export default function Appointment(props) {
+  const handlingDelete = (id) => {
+    activeId.id = id;
+    props.stateListener(Math.random() * 125 * Math.random());
+    openModal("delete-modal");
+  };
+  const handlingEdit = (row) => {
+    Object.assign(entry, row);
+    //Update state
+    props.stateListener(Math.random() * 125 * Math.random());
+    //Poen edit model
+    openModal("edit-modal");
+  };
   const levelOfImportance = [
     "Very Low",
     "Low",
@@ -32,16 +45,21 @@ export default function Appointment(props) {
       >
         {levelOfImportance[props.item.levelOfImportance]}
       </div>
-      <div className="column date">{props.item.date}</div>
+      <div className="column date">{props.item.date.split("T")}</div>
       <div className="column time">{props.item.time}</div>
       <div className="column addr">{props.item.address}</div>
       <div className="column edit">
-        <div className="btn edit">Edit</div>
+        <div className="btn edit" onClick={() => handlingEdit(props.item)}>
+          Edit
+        </div>
       </div>
       <div
         className={`column delete  ${props.item.deleted ? " not-allowed" : ""}`}
       >
-        <div className={`btn delete ${props.item.deleted ? " no-event" : ""}`}>
+        <div
+          className={`btn delete ${props.item.deleted ? " no-event" : ""}`}
+          onClick={() => handlingDelete(props.item.id)}
+        >
           Delete
         </div>
       </div>

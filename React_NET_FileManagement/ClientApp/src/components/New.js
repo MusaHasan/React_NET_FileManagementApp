@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  closeModel,
+  closeModal,
   entry,
   formatedDateToStr,
   formatedTimeToStr,
@@ -37,10 +37,11 @@ export default function New(props) {
     postAppointment(entry)
       .then((r) => {
         console.log(r);
+        props.refreshApp(Math.random() * 125 * Math.random());
       })
       .catch((e) => console.log("Error happend at posting new app: ", e));
 
-    closeModel("new-modal");
+    closeModal("new-modal");
   };
   return (
     <div className="modal-container">
@@ -130,7 +131,7 @@ export default function New(props) {
       </div>
 
       <div className="row justify-btw modal-action-container mt-15">
-        <div className="btn" onClick={() => closeModel("new-modal")}>
+        <div className="btn" onClick={() => closeModal("new-modal")}>
           Cancel
         </div>
         <div className="btn" onClick={postApp}>

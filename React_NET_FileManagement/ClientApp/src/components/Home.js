@@ -3,11 +3,14 @@ import New from "./New";
 import Edit from "./Edit";
 import Delete from "./Delete";
 import Appointment from "./Appointment";
-//import { testData, getDefault, openModel } from "./Lib";
-import { getDefault, openModel } from "./Lib";
+//import { testData, getDefault, openModal } from "./Lib";
+import { getDefault, openModal } from "./Lib";
 
 export default function Home(props) {
   const [dataList, setDataList] = useState([]);
+
+  const [refreshData, setRefreshData] = useState(0); // while added new appointment
+  const [stateListener, setStateListener] = useState(0); // While Edit existing data
 
   useEffect(() => {
     getDefault()
@@ -26,7 +29,7 @@ export default function Home(props) {
         // Handle any errors that occurred during the request
         console.error("Error fetching data:", error);
       });
-  }, []);
+  }, [refreshData]); // Event Trigered when new post is created.
   return (
     <main>
       <h1>Manage Your Appointments / Dates very easy</h1>
@@ -34,7 +37,7 @@ export default function Home(props) {
         This powerful web applicaiton helps you to manage your dates very easy.
       </p>
       <div className="add-btn row items-center content-center">
-        <div className="btn add" onClick={() => openModel("new-modal")}>
+        <div className="btn add" onClick={() => openModal("new-modal")}>
           +
         </div>
       </div>
@@ -122,20 +125,26 @@ export default function Home(props) {
           Loading <div className="loading">...</div>
         </div>
       ) : (
-        dataList.map((item) => <Appointment item={item} key={item.id} />)
+        dataList.map((item) => (
+          <Appointment
+            item={item}
+            key={item.id}
+            stateListener={setStateListener}
+          />
+        ))
       )}
 
       <section>
         <section className="modal new-modal hidden">
-          <New />
+          <New refreshData={setRefreshData} />
         </section>
 
         <section className="modal edit-modal hidden">
-          <Edit />
+          <Edit stateListener={stateListener} refreshData={setRefreshData} />
         </section>
 
         <section className="modal delete-modal hidden">
-          <Delete />
+          <Delete stateListener={stateListener} refreshData={setRefreshData} />
         </section>
       </section>
     </main>

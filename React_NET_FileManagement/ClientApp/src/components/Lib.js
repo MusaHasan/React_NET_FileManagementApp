@@ -42,7 +42,7 @@ export const entry = {
   description: "Test Description",
   address: "Test Address",
   Date: new Date(),
-  time: "12:30",
+  time: formatedTimeToStr(),
   done: false,
   deleted: false,
   levelOfImportence: 2,
@@ -57,6 +57,10 @@ export const filter = {
   EndDate: null,
   SpecifiedDate: null,
   SpecifiedTime: null,
+};
+
+export const activeId = {
+  id: 0,
 };
 
 const url = "api/appointment";
@@ -111,6 +115,45 @@ export async function postAppointment(newApp) {
 
   return await res.json();
 }
+export async function updateAppointment(updateApp) {
+  // Update Date to .net Controller
+  const res = await fetch(url + "/" + updateApp.id, {
+    method: "PUT",
+    body: JSON.stringify(updateApp),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+
+  if (!res.ok) {
+    console.log("It sucked at updating appointment: ", res);
+    notifyUser("We could not update your appointment, please try again.");
+    return { msg: res };
+  }
+
+  return res;
+}
+export async function deleteAppointment(id) {
+  // Deleteing an Appointment
+  const res = await fetch(url + "/" + id, {
+    method: "DELETE",
+  });
+
+  if (!res.ok && res.status !== 200) {
+    console.log("Error deleting data: ", res.statusText);
+    notifyUser("Something went wrong, please refresh the page.");
+    return [];
+  }
+
+  try {
+    const result = await res.json();
+    return result;
+  } catch (error) {
+    console.log("Error parsing JSON: ", error);
+    notifyUser("Error deleting data, please refresh the page.");
+    return [];
+  }
+}
 
 export function notifyUser(msg) {
   // Show user error massage
@@ -122,14 +165,14 @@ export function notifyUser(msg) {
     }, 12000);
 }
 
-export function openModel(modal) {
+export function openModal(modal) {
   // Open the Modal Popup
   const modal_ = document.querySelector("." + modal);
   if (modal_) {
     modal_.classList.remove("hidden");
   }
 }
-export function closeModel(modal) {
+export function closeModal(modal) {
   // Close the Modal Popup
   const modal_ = document.querySelector("." + modal);
   if (modal_) {
